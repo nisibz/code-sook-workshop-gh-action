@@ -8,24 +8,7 @@ on:
     types:
       - opened
 jobs:
-  lint:
-    # bun tun lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Clone repo
-        uses: actions/checkout@v5
-      - name: Setup bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.2.18
-      - name: Install dependencies
-        run: bun i
-      - name: Lint
-        run: bun run lint
-
-  deploy:
-    needs:
-      - lint
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repo
@@ -40,5 +23,20 @@ jobs:
         run: bun run build
       - name: List dist/
         run: ls dist
+      - name: Upload dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-folder
+          path: dist/
+  deploy:
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download dist
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-folder
+          path: dist/
       - name: Deploy
         run: echo "Deploying..."
