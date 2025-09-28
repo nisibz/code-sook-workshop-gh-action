@@ -1,0 +1,3 @@
+codesook.duckdns.org {
+        reverse_proxy nginx:80
+}
