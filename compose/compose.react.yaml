@@ -1,0 +1,8 @@
+services:
+  web:
+    image: hadesgod/react-demo1
+    container_name: web
+    ports:
+      - 3000:3000
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
