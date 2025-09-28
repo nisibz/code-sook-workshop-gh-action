@@ -1,7 +1,7 @@
 name: Install deps and caching
 description: Install deps and caching
 inputs:
-  bun-version:
+  BUN_VERSION:
     description: bun version
     required: false
     default: 1.2.18
