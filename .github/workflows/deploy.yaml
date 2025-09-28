@@ -1,23 +1,25 @@
 name: Deploy react CSR
-on: workflow_dispatch
-# on:
-#   push:
-#     branches:
-#       - develop
-#   workflow_dispatch:
-#   pull_request:
-#     types:
-#       - opened
+# on: workflow_dispatch
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+  pull_request:
+    types:
+      - opened
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: oven/bun:1
     steps:
       - name: Clone repo
         uses: actions/checkout@v5
-      - name: Setup bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.2.18
+      # - name: Setup bun
+      #   uses: oven-sh/setup-bun@v2
+      #   with:
+      #     bun-version: 1.2.18
       - name: Cashing
         uses: actions/cache@v4
         with:
@@ -35,8 +37,8 @@ jobs:
         with:
           name: dist-folder
           path: dist/
-      - name: Force fail
-        run: exit 1
+      # - name: Force fail
+      #   run: exit 1
   deploy:
     if: success()
     needs:
@@ -51,16 +53,16 @@ jobs:
       - name: Deploy
         run: echo "Deploying..."
 
-  notify:
-    needs:
-      - build
-      - deploy
-    runs-on: ubuntu-latest
-    if: failure()
-    steps:
-      - name: Discord notification
-        env:
-          DISCORD_WEBHOOK: https://discord.com/api/webhooks/1421697869458706533/W2UqZa7gD95EU7ixa4gQN3QLz3pWc3oFepvpv16XWxfpuMMTTiqbNULZWrBBmPfPlYBY
-        uses: Ilshidur/action-discord@master
-        with:
-          rgs: "Build failed by nisibz"
+  # notify:
+  #   needs:
+  #     - build
+  #     - deploy
+  #   runs-on: ubuntu-latest
+  #   if: failure()
+  #   steps:
+  #     - name: Discord notification
+  #       env:
+  #         DISCORD_WEBHOOK: https://discord.com/api/webhooks/1421697869458706533/W2UqZa7gD95EU7ixa4gQN3QLz3pWc3oFepvpv16XWxfpuMMTTiqbNULZWrBBmPfPlYBY
+  #       uses: Ilshidur/action-discord@master
+  #       with:
+  #         rgs: "Build failed by nisibz"
