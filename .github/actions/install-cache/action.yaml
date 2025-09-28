@@ -4,7 +4,7 @@ inputs:
   BUN_VERSION:
     description: bun version
     required: false
-    default: 1.2.18
+    default: 1.2.22
 runs:
   using: composite
   steps:
@@ -12,6 +12,12 @@ runs:
       uses: oven-sh/setup-bun@v2
       with:
         bun-version: ${{ inputs.BUN_VERSION }}
+    - uses: actions/cache@v4
+      with:
+        path: |
+          ~/.bun/install/cache
+        key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+
     - name: Install deps
       shell: bash
       run: bun i
