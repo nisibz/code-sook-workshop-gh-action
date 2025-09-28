@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   caddy:
     container_name: caddy
@@ -15,6 +13,7 @@ services:
     #   - "host.docker.internal:host-gateway"
     networks:
       - caddy
+
 networks:
   caddy:
     external: true

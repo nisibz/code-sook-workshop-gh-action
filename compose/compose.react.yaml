@@ -1,6 +1,6 @@
 services:
   web:
-    image: hadesgod/react-demo1
+    image: nisibz/gh-action-react
     container_name: web
     ports:
       - 3000:3000
