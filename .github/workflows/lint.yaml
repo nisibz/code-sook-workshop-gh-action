@@ -1,4 +1,4 @@
-name: Deploy react CSR
+name: Lint
 on:
   push:
     branches:
