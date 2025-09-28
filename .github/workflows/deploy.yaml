@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Clone repo
         uses: actions/checkout@v5
-      - name: install-cache
+      - name: Install and Cache
         uses: ./.github/actions/install-cache
       - name: Build
         run: bun run build
