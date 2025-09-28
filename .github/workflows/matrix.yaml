@@ -8,6 +8,6 @@ jobs:
       matrix:
         bun_version: ["1.2.0", "1.2.18", "1.2.16"]
         browser: ["firefox", "chrome", "safari"]
-    stpes:
+    steps:
       - name: Print Bun version and test Browser
         run: echo "${{ matrix.bun_bersion }} - ${{ matrix.browser }}"
